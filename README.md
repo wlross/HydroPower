@@ -3,6 +3,7 @@ Hydropower’s “Dual Mandate” in Equitable Water Management
 and Profitable Power Generation and Storage**
 
 **Project Background**
+
 At the beginning of the semester, Professor Seungjin Whang and I took on an ambitious project to explore the relevance of sub-seasonal weather forecasting, an area popularized for predictive modeling by the Subseasonal Rodeo Project to optimization modeling.  In particular, the journey was meant to allow me to explore a variety of Reinforcement Learning methods through Udacity’s “Deep Reinforcement Learning” offering and ultimately put together a real-world implementation in the context of climate forecasting.  
 
 Mid-way through the quarter, as we began to search for a relevant project area, Professor Erica Plambeck and Professor Gretchen Daily, played a key role in helping me navigate to the domain of hydropower.  Hydropower is well suited to dynamic modeling in that it has near vs. long-term objective functions, often is subject to the control of a variety of different stakeholders, and, at times, is subject to external market dynamics.  Hydropower plants often face difficult tradeoffs between maintaining hydrological dynamics both up and downstream and generating power as needed for relevant grids.  At the same time, upstream and downstream power plants are often managed by different state and local jurisdiction.  And lastly, the nature of power is that while many hydropower plants choose to sell electricity at a fixed rate today, most power generation is sold in a more dynamic pricing environment. 
@@ -16,6 +17,7 @@ To put these methods into practice, I worked to develop a simplified scenario th
 The system, as outlined, used sub-seasonal and daily precipitation data from dependent communities accessed via NOAA to model a Reinforcement Learning based control system for the Hoover Dam.  
 
 **Methods**
+
 The modeling methodology for this project can best be described in four parts – Data Resampling Methods, Hydrology Modeling, Power Generation Modeling, and Learning Algorithm Design.  The details of this implementation are best visualized below.
 
 ![image](https://user-images.githubusercontent.com/58300517/83983847-e243d300-a8ee-11ea-9dd7-b3be09d061a7.png)
@@ -29,6 +31,7 @@ The actions of these plants also had an impact on Hoover.  While the learned pol
 Lastly the learning algorithm implemented for this task was a variation on SARSA MAX or Modified Connectionist Q-Learning.  The nature of the bootstrapping meant that this approach was essentially a variant on Monte Carlo control where data was sampled daily and in 5-year increments, but the policy was updated quarterly.  In order to ensure thorough search of the full learning space, we implemented a linear decay of the epsilon greedy policy from 1 to 0 over the live of the event as well as a linear decay of the learning rate from .1 to .001.  The predicted value for each reward was also discounted with beta=.02.  
 
 **Results**
+
 Due to limited compute capacity, this method was only implemented for N=2500 bootstrapped samples or 50,000 policy changes and ~4.57M events.  While this is a reasonable number of samples, given a Q-Table with dimensions ~6*6500 and therefore ~39,000 parameters to update convergence was not guaranteed.  
 
 These results, as shown below, do represent a positive trend towards revenues in excess of 100% of quarterly averages for the Hoover Dam.  While much more work would need to be done before putting these results in practice, these early results suggest that there could be merit to a hydrologically balanced but profit maximizing dynamic-policy based approach to running the dam.
@@ -37,6 +40,7 @@ These results, as shown below, do represent a positive trend towards revenues in
 ![image](https://user-images.githubusercontent.com/58300517/83983858-f8ea2a00-a8ee-11ea-82b9-4f0959ebb597.png)
 
 **Learnings**
+
 Ultimately this 390 was incredibly rewarding and I couldn’t be more thankful to Professor Whang for taking this project on with me.  Not only did I gain significant skill through the Udacity exercises, but I greatly challenged myself by executing a final project using only low-level libraries.  As a result, I learned many of the “tricks” to building practical implementations. 
 
 More concretely, I learned that while the allure of Reinforcement Learning systems is it’s ability to handle high levels of dimensionality, simplifying assumptions remain a necessity.  While these assumptions can feel unnatural, they still represent a modeling scenario far more realistic than prior optimization methods.  
